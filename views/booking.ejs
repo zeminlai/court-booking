@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Playlah | Booking Page</title>
+</head>
+<body>
+    <p>One hour interval only</p>
+    <form action="/" method="POST" id="form">
+        <label for="venue">Choose a venue:</label>
+            <select id="venue" name="venue">
+                <option value="KTDI">KTDI</option>
+                <option value="saab">Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+            </select>
+        <label for="date">Date:</label>
+        <input type="date" name="date" required id="date"/>
+        <label for="time-start">Start time</label>
+        <input type="number" min="10" max="22" id="time-start" name="timestart" required />
+        <label for="time-end">End Time</label>
+        <input type="number" min="10" max="22" id="time-end" name="timeend" required/>
+        
+        <input type="submit">
+    </form>
+    <script>
+        // const form = document.querySelector("#form")
+        // const dateForm = document.querySelector("#date");
+        // const timestartForm = document.querySelector("#time-start")
+        // const timeendForm = document.querySelector("#time-end")
+
+        // const date = dateForm.value;
+        // const timestart = timestartForm.value;
+        // const timeend = timeendForm.value;
+
+        // form.addEventListener("submit", e => {
+        //     const formDetails = e.currentTarget;
+        //     console.log(formDetails);
+        // })
+        // console.log(date, timestart, timeend)
+    </script>
+</body>
+</html>
