@@ -5,7 +5,8 @@ const Court = require('./models/court-model.js');
 
 const app = express();                                          
 
-const dbURI = "mongodb+srv://croc:teamcroc@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
+// CHANGE BACK THE PASSWORD
+const dbURI = "mongodb+srv://croc:<password>@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI)
 .then(console.log("connected to db"))
