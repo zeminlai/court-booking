@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const courtSchema = new Schema({
+const searchCourtSchema = new Schema({
     venue: {
         type: String,
         required: true
@@ -19,8 +19,7 @@ const courtSchema = new Schema({
         type: String,
         required: true
     }
-}, {timestamps: true})
+})
 
-const Court = mongoose.model("court", courtSchema);
-module.exports = Court;
-
+const SearchCourt = mongoose.model("searchcourt", searchCourtSchema );
+module.exports = SearchCourt;

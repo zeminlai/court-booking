@@ -2,25 +2,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const courtSchema = new Schema({
+const venueSchema = new Schema({
     venue: {
         type: String,
         required: true
     },
-    date: {
-        type: Date,
+    max_courts: {
+        type: Number,
         required: true
     },
-    timestart: {
-        type: String,
-        required: true
-    },
-    timeend: {
+    sport: {
         type: String,
         required: true
     }
 }, {timestamps: true})
 
-const Court = mongoose.model("court", courtSchema);
-module.exports = Court;
-
+const VenueInfo = mongoose.model("info", venueSchema);
+module.exports = VenueInfo;

@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const Court = require('./models/court-model.js');
+const VenueInfo = require('./models/venueInfo-model.js')
+const SearchCourt = require('./models/searchcourt-model.js')
 
 const app = express();                                          
 
@@ -23,20 +25,53 @@ app.get('/', (req, res) => {
     res.render("booking");
 })
 
-
-app.post('/', (req, res) => {
-    // Search for court
+// Save searched court in searchcourt collection 
+app.post('/search/submit', (req, res) => {
     console.log(req.body)
-    Court.find(req.body)
+    const searchcourt = new SearchCourt(req.body)
+    searchcourt.save()
         .then(result => {
-            console.log(result)
-            if(result.length == 0){
-                console.log('not found')
-            }
-            else{
-                console.log('found')
-            }
-            res.redirect("/")
+            const id = searchcourt._id;
+            res.redirect(`/court/${id}`);
+        })
+        .catch(err => console.log(err))
+})
+
+app.get('/court/:id', (req, res) => {
+    const id = req.params.id
+    // find the searchcourt and exclue id and __v fields when returned
+    SearchCourt.findById(id, {_id : 0, __v : 0})
+        .then(result => {
+            const searchcourt = result
+            // return the value to the next .then
+            return searchcourt
+        })
+        .then((result) => {
+            const searchcourt = result
+            console.log(searchcourt)
+
+            // find if there are unavailable courts and only get court number
+            Court.find(searchcourt, {court: 1 , _id: 0}).distinct("court")
+            .then(result => {
+                console.log(searchcourt)
+                const bookedCourt = result
+                if (bookedCourt.length != 0){
+                    console.log('court unavailable are')
+                    console.log(bookedCourt)
+                }
+                else {
+                    console.log('all court available')
+                }
+                
+                VenueInfo.find({venue: searchcourt.venue})
+                    .then(result => {
+                        const venueinfo = result
+                        console.log(result)
+                        res.render("courts", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo })
+                    })
+                
+                // delete the id so that SearchCourt db wont be cluttered
+            })
         })
         .catch(err => console.log(err))
 })
