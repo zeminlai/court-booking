@@ -8,7 +8,7 @@ const SearchCourt = require('./models/searchcourt-model.js')
 const app = express();                                          
 
 // CHANGE BACK THE PASSWORD
-const dbURI = "mongodb+srv://croc:teamcroc@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
+const dbURI = "mongodb+srv://croc:<password>@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI)
 .then(console.log("connected to db"))
