@@ -12,15 +12,15 @@ const dbURI = "mongodb+srv://croc:<password>@playlah.wlgykth.mongodb.net/playlah
 
 mongoose.connect(dbURI)
 .then(console.log("connected to db"))
-.then(result => app.listen(8080))
+.then(result => app.listen(6969))
 .catch(err => console.log(err));
 
 
 app.set('view engine', 'ejs');
 
+app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}));
 app.use(morgan("dev"));
-
 
 app.get('/', (req, res) => {
     res.render("booking");
@@ -33,15 +33,15 @@ app.post('/search/submit', (req, res) => {
     searchcourt.save()
         .then(result => {
             const id = searchcourt._id;
-            res.redirect(`/court/${id}`);
+            res.redirect(`/search/${id}`);
         })
         .catch(err => console.log(err))
 })
 
-app.get('/court/:id', (req, res) => {
+app.get('/search/:id', (req, res) => {
     const id = req.params.id
     // find the searchcourt and exclue id and __v fields when returned
-    SearchCourt.findById(id, {_id : 0, __v : 0})
+    SearchCourt.findById(id, {_id : 0, __v : 0, createdAt: 0, updatedAt: 0, duration: 0})
         .then(result => {
             const searchcourt = result
             // find if there are unavailable courts and only get court number
@@ -61,10 +61,8 @@ app.get('/court/:id', (req, res) => {
                     .then(result => {
                         const venueinfo = result
                         // render courts.ejs and send over the variables
-                        res.render("courts", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo })
+                        res.render("search", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo })
                     })
-                
-                // delete the id so that SearchCourt db wont be cluttered
             })
         })
         .catch(err => console.log(err))

@@ -14,10 +14,6 @@ const courtSchema = new Schema({
     timestart: {
         type: String,
         required: true
-    },
-    timeend: {
-        type: String,
-        required: true
     }
 }, {timestamps: true})
 

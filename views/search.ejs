@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/filterBar.ejs') %>
+
+    <!-- function to format date to dd/mm/yy -->
+    <% function formatDate(value) { %>
+        <% let date = new Date(value); %>
+        <% const day = date.toLocaleString('default', { day: '2-digit' }); %>
+        <% const month = date.toLocaleString('default', { month: 'short' });%>
+        <% const year = date.toLocaleString('default', { year: 'numeric' }); %>
+        <% return day + '-' + month + '-' + year;%>
+    <% } %>
+
+    <% for (let i = 1; i <=  venueDetails.max_courts; i++) { %>
+        <% if (!(bookedCourtNum.includes(i))) { %>
+                <% const timeend = parseInt(courtDetails.timestart) + 1; %>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= venueDetails.venue %> <%= venueDetails.sport %> court</h5>
+                    <p class="card-text">Court : <%= i %></p>
+                    <p class="card-text">Date : <%= formatDate(courtDetails.date) %></p>
+                    <p class="card-text">Time : <%= courtDetails.timestart %>:00 - <%= timeend%>:00</p>
+                    <button type="button" class="btn btn-outline-primary">Book</button>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+    <script>
+        
+    </script>
+</body>
+</html>

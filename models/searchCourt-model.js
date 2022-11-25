@@ -15,11 +15,11 @@ const searchCourtSchema = new Schema({
         type: String,
         required: true
     },
-    timeend: {
-        type: String,
-        required: true
+    duration: {
+        type: String
     }
-})
+}, {timestamps: true})
+
 
 const SearchCourt = mongoose.model("searchcourt", searchCourtSchema );
 module.exports = SearchCourt;
