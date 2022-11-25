@@ -27,10 +27,25 @@
         <input type="submit">
     </form>
 
-    <h1><%= courtDetails %></h1>
-    <h1><%= bookedCourtNum %></h1>
-    <h1><%= venueDetails %></h1>
+    <!-- function to format date to dd/mm/yy -->
+    <% function formatDate(value) { %>
+        <% let date = new Date(value); %>
+        <% const day = date.toLocaleString('default', { day: '2-digit' }); %>
+        <% const month = date.toLocaleString('default', { month: 'short' });%>
+        <% const year = date.toLocaleString('default', { year: 'numeric' }); %>
+        <% return day + '-' + month + '-' + year;%>
+    <% } %>
 
+    <% for (let i = 1; i <=  venueDetails.max_courts; i++) { %>
+        <% if (!(bookedCourtNum.includes(i))) { %>
+            <div class="court-details">
+                <div class="title"><%= venueDetails.venue %> <%= venueDetails.sport %> court</div>
+                <div class="court-num">Court : <%= i %></div>
+                <div class="court-date">Date : <%= formatDate(courtDetails.date) %></div>
+                <div class="court-time">Time : <%= courtDetails.timestart %> - <%= courtDetails.timeend %></div>
+            </div>
+        <% } %>
+    <% } %>
     <script>
         
     </script>

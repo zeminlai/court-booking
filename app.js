@@ -8,7 +8,7 @@ const SearchCourt = require('./models/searchcourt-model.js')
 const app = express();                                          
 
 // CHANGE BACK THE PASSWORD
-const dbURI = "mongodb+srv://croc:<password>@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
+const dbURI = "mongodb+srv://croc:teamcroc@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI)
 .then(console.log("connected to db"))
@@ -44,13 +44,6 @@ app.get('/court/:id', (req, res) => {
     SearchCourt.findById(id, {_id : 0, __v : 0})
         .then(result => {
             const searchcourt = result
-            // return the value to the next .then
-            return searchcourt
-        })
-        .then((result) => {
-            const searchcourt = result
-            console.log(searchcourt)
-
             // find if there are unavailable courts and only get court number
             Court.find(searchcourt, {court: 1 , _id: 0}).distinct("court")
             .then(result => {
@@ -64,10 +57,10 @@ app.get('/court/:id', (req, res) => {
                     console.log('all court available')
                 }
                 
-                VenueInfo.find({venue: searchcourt.venue})
+                VenueInfo.findOne({venue: searchcourt.venue})
                     .then(result => {
                         const venueinfo = result
-                        console.log(result)
+                        // render courts.ejs and send over the variables
                         res.render("courts", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo })
                     })
                 
