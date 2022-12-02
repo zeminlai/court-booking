@@ -4,15 +4,16 @@ const morgan = require('morgan');
 const Court = require('./models/court-model.js');
 const VenueInfo = require('./models/venueInfo-model.js')
 const SearchCourt = require('./models/searchcourt-model.js')
+require('dotenv').config()
 
 const app = express();                                          
 
-// CHANGE BACK THE PASSWORD
-const dbURI = "mongodb+srv://croc:<password>@playlah.wlgykth.mongodb.net/playlah?retryWrites=true&w=majority"
+// URL in .env file
+const dbURI = process.env.MONGO_URL;
 
 mongoose.connect(dbURI)
 .then(console.log("connected to db"))
-.then(result => app.listen(6969))
+.then(result => app.listen(8080))
 .catch(err => console.log(err));
 
 
