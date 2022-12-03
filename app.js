@@ -62,7 +62,8 @@ app.get('/search/:id', (req, res) => {
                     .then(result => {
                         const venueinfo = result
                         // render courts.ejs and send over the variables
-                        res.render("search", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo })
+                        // console.log(id)
+                        res.render("search", {courtDetails : searchcourt, bookedCourtNum : bookedCourt, venueDetails : venueinfo, searchId: id})
                     })
             })
         })
